@@ -1,0 +1,55 @@
+{
+  "name": "Aarna Brick Works",
+  "short_name": "ABW",
+  "description": "Inventory, sales, and worker management for Aarna Brick Works.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F5F0EB",
+  "theme_color": "#B54A2B",
+  "categories": ["business", "productivity"],
+  "icons": [
+    {
+      "src": "./icon-180.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Dashboard",
+      "url": "./index.html#dashboard",
+      "description": "View stock and sales overview"
+    },
+    {
+      "name": "Add Sale",
+      "url": "./index.html#sales",
+      "description": "Record a new brick sale"
+    }
+  ]
+}

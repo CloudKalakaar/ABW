@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#B54A2B">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="ABW">
+  <title>ABW – Aarna Brick Works</title>
+  <link rel="manifest" href="./manifest.json">
+  <link rel="apple-touch-icon" href="./icon-180.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+  <!-- ========== HEADER ========== -->
+  <header class="app-header">
+    <div class="header-left">
+      <img src="./icon-192.png" alt="ABW" class="header-logo">
+      <span class="header-title">ABW</span>
+    </div>
+    <div class="header-right">
+      <button class="btn-icon sync-indicator" id="header-sync-btn" title="Sync status">
+        <svg viewBox="0 0 24 24"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg>
+      </button>
+      <button class="btn-icon" id="btn-settings" title="Settings">
+        <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 00.12-.61l-1.92-3.32a.49.49 0 00-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 00-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.49.49 0 00-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58a.49.49 0 00-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6A3.6 3.6 0 1115.6 12 3.611 3.611 0 0112 15.6z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ========== MAIN CONTENT ========== -->
+  <main class="app-main">
+
+    <!-- ===== DASHBOARD ===== -->
+    <section class="view active" id="view-dashboard">
+      <div class="view-header">
+        <h2>Dashboard</h2>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-card stat-primary">
+          <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M3 3h8v2H3v-2zm0 4h8v2H3V7zm0 4h8v2H3v-2zm0 4h8v2H3v-2zm0 4h8v2H3v-2zm10-16h8v2h-8V3zm0 4h8v2h-8V7zm0 4h8v2h-8v-2zm0 4h8v2h-8v-2zm0 4h8v2h-8v-2z" fill="currentColor"/></svg></div>
+          <div class="stat-value" id="dash-stock-count">0</div>
+          <div class="stat-label">Bricks in Stock</div>
+        </div>
+        <div class="stat-card stat-success">
+          <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z" fill="currentColor"/></svg></div>
+          <div class="stat-value" id="dash-total-sales">₹0</div>
+          <div class="stat-label">Total Sales</div>
+        </div>
+        <div class="stat-card stat-info">
+          <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M21 18v1a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2v1h-9a2 2 0 00-2 2v8a2 2 0 002 2h9zm-9-2h10V8H12v8zm4-2.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3z" fill="currentColor"/></svg></div>
+          <div class="stat-value" id="dash-total-received">₹0</div>
+          <div class="stat-label">Received</div>
+        </div>
+        <div class="stat-card stat-danger">
+          <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor"/></svg></div>
+          <div class="stat-value" id="dash-outstanding">₹0</div>
+          <div class="stat-label">Outstanding</div>
+        </div>
+        <div class="stat-card stat-warning">
+          <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" fill="currentColor"/></svg></div>
+          <div class="stat-value" id="dash-total-salary">₹0</div>
+          <div class="stat-label">Salary Paid</div>
+        </div>
+      </div>
+      <div class="section-header">
+        <h3>Recent Activity</h3>
+      </div>
+      <div id="dash-recent-activity" class="activity-feed">
+        <div class="empty-state">
+          <div class="empty-state-icon"><svg viewBox="0 0 24 24"><path d="M13 3a9 9 0 00-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0013 21a9 9 0 000-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg></div>
+          <p class="empty-state-text">No activity yet</p>
+          <p class="empty-state-sub">Start by adding inventory or sales</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SALES ===== -->
+    <section class="view" id="view-sales">
+      <div class="view-header">
+        <h2>Sales</h2>
+      </div>
+      <div class="pill-tabs" id="sales-pill-tabs">
+        <button class="pill-tab active" data-sales-tab="customers">Customers</button>
+        <button class="pill-tab" data-sales-tab="sales">Sales</button>
+        <button class="pill-tab" data-sales-tab="payments">Payments</button>
+      </div>
+      <div class="search-bar">
+        <div class="search-icon"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></div>
+        <input type="text" class="search-input" id="sales-search" placeholder="Search customers, sales...">
+      </div>
+      <!-- Sub-tab: Customers -->
+      <div id="sales-tab-customers" class="sales-sub-view active">
+        <div id="sales-customer-list"></div>
+      </div>
+      <!-- Sub-tab: Sales History -->
+      <div id="sales-tab-sales" class="sales-sub-view">
+        <div id="sales-list"></div>
+      </div>
+      <!-- Sub-tab: Payments -->
+      <div id="sales-tab-payments" class="sales-sub-view">
+        <div id="payments-list"></div>
+      </div>
+      <!-- FAB + menu -->
+      <div class="fab-overlay" id="fab-overlay-sales"></div>
+      <div class="fab-menu" id="fab-menu-sales">
+        <div class="fab-mini">
+          <button class="fab-mini-btn" id="fab-add-payment" title="Add Payment"><svg viewBox="0 0 24 24"><path d="M21 18v1a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2v1h-9a2 2 0 00-2 2v8a2 2 0 002 2h9zm-9-2h10V8H12v8zm4-2.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3z" fill="currentColor"/></svg></button>
+          <span class="fab-mini-label">Payment</span>
+        </div>
+        <div class="fab-mini">
+          <button class="fab-mini-btn" id="fab-add-sale" title="Add Sale"><svg viewBox="0 0 24 24"><path d="M18 17H6v-2h12v2zm0-4H6v-2h12v2zm0-4H6V7h12v2zM3 22l1.5-1.5L6 22l1.5-1.5L9 22l1.5-1.5L12 22l1.5-1.5L15 22l1.5-1.5L18 22l1.5-1.5L21 22V2l-1.5 1.5L18 2l-1.5 1.5L15 2l-1.5 1.5L12 2l-1.5 1.5L9 2 7.5 3.5 6 2 4.5 3.5 3 2v20z" fill="currentColor"/></svg></button>
+          <span class="fab-mini-label">Sale</span>
+        </div>
+        <div class="fab-mini">
+          <button class="fab-mini-btn" id="fab-add-customer" title="Add Customer"><svg viewBox="0 0 24 24"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" fill="currentColor"/></svg></button>
+          <span class="fab-mini-label">Customer</span>
+        </div>
+      </div>
+      <button class="fab" id="fab-sales">
+        <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" fill="currentColor"/></svg>
+      </button>
+    </section>
+
+    <!-- ===== INVENTORY ===== -->
+    <section class="view" id="view-inventory">
+      <div class="view-header">
+        <h2>Inventory</h2>
+      </div>
+      <div class="stock-hero">
+        <div class="stock-hero-value" id="inv-stock-count">0</div>
+        <div class="stock-hero-label">Bricks in Stock</div>
+      </div>
+      <div class="section-header">
+        <h3>Inventory Log</h3>
+      </div>
+      <div id="inv-log-list" class="list-container"></div>
+      <button class="fab" id="fab-inventory">
+        <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" fill="currentColor"/></svg>
+      </button>
+    </section>
+
+    <!-- ===== WORKERS ===== -->
+    <section class="view" id="view-workers">
+      <div class="view-header">
+        <h2>Workers</h2>
+      </div>
+      <div class="flex-between mb-2">
+        <div>
+          <span class="fs-sm text-muted">Total Salary Paid</span>
+          <div class="fw-700 text-primary" id="workers-total-salary">₹0</div>
+        </div>
+      </div>
+      <div id="workers-batch-list"></div>
+      <!-- FAB + menu -->
+      <div class="fab-overlay" id="fab-overlay-workers"></div>
+      <div class="fab-menu" id="fab-menu-workers">
+        <div class="fab-mini">
+          <button class="fab-mini-btn" id="fab-pay-salary" title="Pay Salary"><svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z" fill="currentColor"/></svg></button>
+          <span class="fab-mini-label">Pay Salary</span>
+        </div>
+        <div class="fab-mini">
+          <button class="fab-mini-btn" id="fab-add-batch" title="Add Batch"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" fill="currentColor"/></svg></button>
+          <span class="fab-mini-label">Add Batch</span>
+        </div>
+      </div>
+      <button class="fab" id="fab-workers">
+        <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" fill="currentColor"/></svg>
+      </button>
+    </section>
+
+    <!-- ===== SETTINGS ===== -->
+    <section class="view" id="view-settings">
+      <div class="view-header">
+        <h2>Settings</h2>
+        <button class="btn-icon" id="btn-back-from-settings">
+          <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="currentColor"/></svg>
+        </button>
+      </div>
+
+      <!-- Google Drive Sync -->
+      <div class="settings-section" id="gdrive-section">
+        <div class="settings-section-title">Google Drive Sync</div>
+        <div class="settings-item">
+          <span class="settings-item-label">Status</span>
+          <span class="settings-item-value" id="gdrive-status">Not connected</span>
+        </div>
+        <div class="settings-item" id="gdrive-email-row" style="display:none">
+          <span class="settings-item-label">Account</span>
+          <span class="settings-item-value" id="gdrive-email">—</span>
+        </div>
+        <div class="settings-item" id="gdrive-last-sync-row" style="display:none">
+          <span class="settings-item-label">Last Sync</span>
+          <span class="settings-item-value" id="gdrive-last-sync">—</span>
+        </div>
+        <div class="settings-input-row" id="gdrive-client-id-row">
+          <input type="text" class="form-input" id="gdrive-client-id" placeholder="Google OAuth Client ID">
+        </div>
+        <div class="settings-item" id="gdrive-connect-row">
+          <span class="settings-item-label">Connect Account</span>
+          <button class="btn btn-primary btn-sm" id="gdrive-connect-btn">Connect</button>
+        </div>
+        <div class="settings-item" id="gdrive-disconnect-row" style="display:none">
+          <span class="settings-item-label">Disconnect</span>
+          <button class="btn btn-danger btn-sm" id="gdrive-disconnect-btn">Disconnect</button>
+        </div>
+        <div class="settings-item" id="gdrive-auto-sync-row" style="display:none">
+          <span class="settings-item-label">Auto-Sync</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="gdrive-auto-sync-toggle">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+        <div class="settings-item" id="gdrive-manual-row" style="display:none">
+          <button class="btn btn-secondary btn-sm" id="gdrive-sync-btn">Sync Now</button>
+          <button class="btn btn-secondary btn-sm" id="gdrive-restore-btn">Restore</button>
+        </div>
+      </div>
+
+      <!-- Data Management -->
+      <div class="settings-section">
+        <div class="settings-section-title">Data Management</div>
+        <div class="settings-item">
+          <span class="settings-item-label">Export Backup</span>
+          <button class="btn btn-secondary btn-sm" id="btn-export-data">Export JSON</button>
+        </div>
+        <div class="settings-item">
+          <span class="settings-item-label">Import Backup</span>
+          <button class="btn btn-secondary btn-sm" id="btn-import-data">Import JSON</button>
+          <input type="file" id="import-file-input" accept=".json" style="display:none">
+        </div>
+      </div>
+
+      <!-- App -->
+      <div class="settings-section">
+        <div class="settings-section-title">App</div>
+        <div class="settings-item">
+          <span class="settings-item-label">Force Refresh</span>
+          <button class="btn btn-danger btn-sm" id="btn-hard-refresh">Clear Cache & Reload</button>
+        </div>
+        <div class="settings-item">
+          <span class="settings-item-label">Version</span>
+          <span class="settings-item-value">1.0.0</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========== BOTTOM NAVIGATION ========== -->
+  <nav class="app-nav">
+    <button class="nav-item active" data-tab="dashboard">
+      <div class="nav-icon"><svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg></div>
+      <span class="nav-label">Dashboard</span>
+    </button>
+    <button class="nav-item" data-tab="sales">
+      <div class="nav-icon"><svg viewBox="0 0 24 24"><path d="M18 17H6v-2h12v2zm0-4H6v-2h12v2zm0-4H6V7h12v2zM3 22l1.5-1.5L6 22l1.5-1.5L9 22l1.5-1.5L12 22l1.5-1.5L15 22l1.5-1.5L18 22l1.5-1.5L21 22V2l-1.5 1.5L18 2l-1.5 1.5L15 2l-1.5 1.5L12 2l-1.5 1.5L9 2 7.5 3.5 6 2 4.5 3.5 3 2v20z"/></svg></div>
+      <span class="nav-label">Sales</span>
+    </button>
+    <button class="nav-item" data-tab="inventory">
+      <div class="nav-icon"><svg viewBox="0 0 24 24"><path d="M3 3h8v2H3v-2zm0 4h8v2H3V7zm0 4h8v2H3v-2zm0 4h8v2H3v-2zm0 4h8v2H3v-2zm10-16h8v2h-8V3zm0 4h8v2h-8V7zm0 4h8v2h-8v-2zm0 4h8v2h-8v-2zm0 4h8v2h-8v-2z"/></svg></div>
+      <span class="nav-label">Inventory</span>
+    </button>
+    <button class="nav-item" data-tab="workers">
+      <div class="nav-icon"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div>
+      <span class="nav-label">Workers</span>
+    </button>
+  </nav>
+
+  <!-- ========== MODALS ========== -->
+
+  <!-- Customer Modal -->
+  <div class="modal-overlay" id="modal-customer">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <h3 id="modal-customer-title">Add Customer</h3>
+        <button class="btn-icon modal-close"><svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="currentColor"/></svg></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Name</label>
+          <input type="text" class="form-input" id="cust-name" placeholder="Customer name (optional)">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone</label>
+          <input type="tel" class="form-input" id="cust-phone" placeholder="Phone number (optional)">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Address</label>
+          <textarea class="form-input form-textarea" id="cust-address" placeholder="Address (optional)" rows="2"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary modal-cancel">Cancel</button>
+        <button class="btn btn-primary" id="btn-save-customer">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sale Modal -->
+  <div class="modal-overlay" id="modal-sale">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <h3 id="modal-sale-title">Add Sale</h3>
+        <button class="btn-icon modal-close"><svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="currentColor"/></svg></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Customer</label>
+          <select class="form-input form-select" id="sale-customer">
+            <option value="">Walk-in (No Customer)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Date</label>
+          <input type="date" class="form-input" id="sale-date">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Bricks</label>
+            <input type="number" class="form-input" id="sale-bricks" placeholder="Count" inputmode="numeric">
+          </div>
+          <div class="form-group">
+            <label class="form-label">₹ / Brick</label>
+            <input type="number" class="form-input" id="sale-price" placeholder="Price" inputmode="decimal" step="0.5">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Total Cost (₹)</label>
+          <input type="number" class="form-input" id="sale-total" placeholder="Auto-calculated" inputmode="numeric">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Notes</label>
+          <input type="text" class="form-input" id="sale-notes" placeholder="Optional notes">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary modal-cancel">Cancel</button>
+        <button class="btn btn-primary" id="btn-save-sale">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Payment Modal -->
+  <div class="modal-overlay" id="modal-payment">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <h3 id="modal-payment-title">Add Payment</h3>
+        <button class="btn-icon modal-close"><svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="currentColor"/></svg></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Customer</label>
+          <select class="form-input form-select" id="pay-customer">
+            <option value="">Select Customer</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Amount (₹)</label>
+          <input type="number" class="form-input" id="pay-amount" placeholder="Payment amount" inputmode="numeric">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Date</label>
+          <input type="date" class="form-input" id="pay-date">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Mode</label>
+          <select class="form-input form-select" id="pay-mode">
+            <option value="cash">Cash</option>
+            <option value="upi">UPI</option>
+            <option value="bank">Bank Transfer</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Notes</label>
+          <input type="text" class="form-input" id="pay-notes" placeholder="Optional notes">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary modal-cancel">Cancel</button>
+        <button class="btn btn-primary" id="btn-save-payment">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Inventory Modal -->
+  <div class="modal-overlay" id="modal-inventory">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <h3 id="modal-inventory-title">Add Bricks</h3>
+        <button class="btn-icon modal-close"><svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="currentColor"/></svg></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Date</label>
+          <input type="date" class="form-input" id="inv-date">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Bricks Produced</label>
+          <input type="number" class="form-input" id="inv-count" placeholder="Number of bricks" inputmode="numeric">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Notes</label>
+          <input type="text" class="form-input" id="inv-notes" placeholder="e.g. Batch #12">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary modal-cancel">Cancel</button>
+        <button class="btn btn-primary" id="btn-save-inventory">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Batch Modal -->
+  <div class="modal-overlay" id="modal-batch">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <h3 id="modal-batch-title">Add Worker Batch</h3>
+        <button class="btn-icon modal-close"><svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="currentColor"/></svg></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Batch Name</label>
+          <input type="text" class="form-input" id="batch-name" placeholder="e.g. Team Alpha, Morning Shift">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary modal-cancel">Cancel</button>
+        <button class="btn btn-primary" id="btn-save-batch">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Salary Modal -->
+  <div class="modal-overlay" id="modal-salary">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <h3 id="modal-salary-title">Pay Salary</h3>
+        <button class="btn-icon modal-close"><svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="currentColor"/></svg></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Batch</label>
+          <select class="form-input form-select" id="sal-batch">
+            <option value="">Select Batch</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Amount (₹)</label>
+          <input type="number" class="form-input" id="sal-amount" placeholder="Salary amount" inputmode="numeric">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Date</label>
+          <input type="date" class="form-input" id="sal-date">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Notes</label>
+          <input type="text" class="form-input" id="sal-notes" placeholder="Optional notes">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary modal-cancel">Cancel</button>
+        <button class="btn btn-primary" id="btn-save-salary">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirm Modal -->
+  <div class="modal-overlay" id="modal-confirm">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <h3 id="modal-confirm-title">Confirm</h3>
+        <button class="btn-icon modal-close"><svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="currentColor"/></svg></button>
+      </div>
+      <div class="confirm-body">
+        <div class="confirm-icon"><svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg></div>
+        <p id="modal-confirm-message">Are you sure?</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="btn-confirm-no">Cancel</button>
+        <button class="btn btn-danger" id="btn-confirm-yes">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== TOAST ========== -->
+  <div class="toast" id="toast"></div>
+
+  <!-- ========== SCRIPTS ========== -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="./app.js"></script>
+</body>
+</html>
