@@ -1,4 +1,4 @@
-const CACHE_NAME = 'abw-tracker-v1';
+const CACHE_NAME = 'abw-tracker-v3';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
