@@ -6,6 +6,7 @@
 // ─── Constants ───────────────────────────────────────────────
 const LOCAL_STORAGE_KEY = 'abw_tracker_db_v1';
 const GDRIVE_BACKUP_FILENAME = 'ABW_Database_Backup.json';
+const GDRIVE_CLIENT_ID = '434441892966-203633m5fa73di5u7al48o4niilu1obh.apps.googleusercontent.com';
 
 // ─── State ───────────────────────────────────────────────────
 let state = {
@@ -391,6 +392,10 @@ function renderCustomers() {
             </div>
           </div>
         </div>
+        <div class="card-actions">
+          <button class="btn btn-secondary btn-sm" onclick="openSaleModalForCustomer('${c.id}')">+ Sale</button>
+          <button class="btn btn-secondary btn-sm" onclick="openPaymentModalForCustomer('${c.id}')">+ Payment</button>
+        </div>
       </div>
     `;
   }).join('');
@@ -503,6 +508,24 @@ function openSaleModal() {
   document.getElementById('sale-date').value = todayStr();
   populateCustomerSelect('sale-customer', true);
   openModal('modal-sale');
+}
+
+function openSaleModalForCustomer(custId) {
+  resetForm('modal-sale');
+  document.getElementById('modal-sale-title').textContent = 'Add Sale';
+  document.getElementById('sale-date').value = todayStr();
+  populateCustomerSelect('sale-customer', true);
+  document.getElementById('sale-customer').value = custId;
+  openModal('modal-sale');
+}
+
+function openPaymentModalForCustomer(custId) {
+  resetForm('modal-payment');
+  document.getElementById('modal-payment-title').textContent = 'Add Payment';
+  document.getElementById('pay-date').value = todayStr();
+  populateCustomerSelect('pay-customer', false);
+  document.getElementById('pay-customer').value = custId;
+  openModal('modal-payment');
 }
 
 function saveSale() {
@@ -763,6 +786,7 @@ function renderWorkers() {
           </div>
           <div style="display:flex;align-items:center;gap:8px">
             <div class="batch-total">${formatCurrency(batchTotal)}</div>
+            <button class="btn btn-secondary btn-sm" onclick="openSalaryModalForBatch('${b.id}')" title="Pay Salary">₹ Pay</button>
             <button class="btn-icon" onclick="deleteBatch('${b.id}')" title="Delete batch">
               <svg viewBox="0 0 24 24" style="width:16px;height:16px"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" fill="currentColor"/></svg>
             </button>
@@ -837,6 +861,11 @@ function openSalaryModal() {
   openModal('modal-salary');
 }
 
+function openSalaryModalForBatch(batchId) {
+  openSalaryModal();
+  document.getElementById('sal-batch').value = batchId;
+}
+
 function saveSalary() {
   const batchId = document.getElementById('sal-batch').value;
   const amount = parseFloat(document.getElementById('sal-amount').value) || 0;
@@ -883,17 +912,14 @@ function updateGDriveUI() {
   document.getElementById('gdrive-last-sync-row').style.display = state.gdrive.lastSyncTime ? '' : 'none';
   document.getElementById('gdrive-last-sync').textContent = state.gdrive.lastSyncTime ? new Date(state.gdrive.lastSyncTime).toLocaleString('en-IN') : '—';
   document.getElementById('gdrive-connect-row').style.display = connected ? 'none' : '';
-  document.getElementById('gdrive-client-id-row').style.display = connected ? 'none' : '';
   document.getElementById('gdrive-disconnect-row').style.display = connected ? '' : 'none';
   document.getElementById('gdrive-auto-sync-row').style.display = connected ? '' : 'none';
   document.getElementById('gdrive-manual-row').style.display = connected ? '' : 'none';
   document.getElementById('gdrive-auto-sync-toggle').checked = state.gdrive.autoSync;
-  document.getElementById('gdrive-client-id').value = state.gdrive.clientId || '';
 }
 
 function connectGoogleDrive() {
-  const clientId = document.getElementById('gdrive-client-id').value.trim();
-  if (!clientId) { showToast('Enter OAuth Client ID', 'error'); return; }
+  const clientId = GDRIVE_CLIENT_ID;
   state.gdrive.clientId = clientId;
   saveState();
 
@@ -1234,18 +1260,11 @@ function bindEvents() {
   });
 
   // ── FABs ──
-  document.getElementById('fab-sales').addEventListener('click', () => toggleFabMenu('sales'));
-  document.getElementById('fab-overlay-sales').addEventListener('click', closeFabMenus);
-  document.getElementById('fab-add-customer').addEventListener('click', () => { closeFabMenus(); openCustomerModal(); });
-  document.getElementById('fab-add-sale').addEventListener('click', () => { closeFabMenus(); openSaleModal(); });
-  document.getElementById('fab-add-payment').addEventListener('click', () => { closeFabMenus(); openPaymentModal(); });
+  document.getElementById('fab-sales').addEventListener('click', () => openCustomerModal());
 
   document.getElementById('fab-inventory').addEventListener('click', () => openInventoryModal());
 
-  document.getElementById('fab-workers').addEventListener('click', () => toggleFabMenu('workers'));
-  document.getElementById('fab-overlay-workers').addEventListener('click', closeFabMenus);
-  document.getElementById('fab-add-batch').addEventListener('click', () => { closeFabMenus(); openBatchModal(); });
-  document.getElementById('fab-pay-salary').addEventListener('click', () => { closeFabMenus(); openSalaryModal(); });
+  document.getElementById('fab-workers').addEventListener('click', () => openBatchModal());
 
   // ── Save buttons ──
   document.getElementById('btn-save-customer').addEventListener('click', saveCustomer);

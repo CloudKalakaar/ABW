@@ -104,23 +104,7 @@
       <div id="sales-tab-payments" class="sales-sub-view">
         <div id="payments-list"></div>
       </div>
-      <!-- FAB + menu -->
-      <div class="fab-overlay" id="fab-overlay-sales"></div>
-      <div class="fab-menu" id="fab-menu-sales">
-        <div class="fab-mini">
-          <button class="fab-mini-btn" id="fab-add-payment" title="Add Payment"><svg viewBox="0 0 24 24"><path d="M21 18v1a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2v1h-9a2 2 0 00-2 2v8a2 2 0 002 2h9zm-9-2h10V8H12v8zm4-2.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3z" fill="currentColor"/></svg></button>
-          <span class="fab-mini-label">Payment</span>
-        </div>
-        <div class="fab-mini">
-          <button class="fab-mini-btn" id="fab-add-sale" title="Add Sale"><svg viewBox="0 0 24 24"><path d="M18 17H6v-2h12v2zm0-4H6v-2h12v2zm0-4H6V7h12v2zM3 22l1.5-1.5L6 22l1.5-1.5L9 22l1.5-1.5L12 22l1.5-1.5L15 22l1.5-1.5L18 22l1.5-1.5L21 22V2l-1.5 1.5L18 2l-1.5 1.5L15 2l-1.5 1.5L12 2l-1.5 1.5L9 2 7.5 3.5 6 2 4.5 3.5 3 2v20z" fill="currentColor"/></svg></button>
-          <span class="fab-mini-label">Sale</span>
-        </div>
-        <div class="fab-mini">
-          <button class="fab-mini-btn" id="fab-add-customer" title="Add Customer"><svg viewBox="0 0 24 24"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" fill="currentColor"/></svg></button>
-          <span class="fab-mini-label">Customer</span>
-        </div>
-      </div>
-      <button class="fab" id="fab-sales">
+      <button class="fab" id="fab-sales" title="Add Customer">
         <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" fill="currentColor"/></svg>
       </button>
     </section>
@@ -155,19 +139,7 @@
         </div>
       </div>
       <div id="workers-batch-list"></div>
-      <!-- FAB + menu -->
-      <div class="fab-overlay" id="fab-overlay-workers"></div>
-      <div class="fab-menu" id="fab-menu-workers">
-        <div class="fab-mini">
-          <button class="fab-mini-btn" id="fab-pay-salary" title="Pay Salary"><svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z" fill="currentColor"/></svg></button>
-          <span class="fab-mini-label">Pay Salary</span>
-        </div>
-        <div class="fab-mini">
-          <button class="fab-mini-btn" id="fab-add-batch" title="Add Batch"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" fill="currentColor"/></svg></button>
-          <span class="fab-mini-label">Add Batch</span>
-        </div>
-      </div>
-      <button class="fab" id="fab-workers">
+      <button class="fab" id="fab-workers" title="Add Batch">
         <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" fill="currentColor"/></svg>
       </button>
     </section>
@@ -195,9 +167,6 @@
         <div class="settings-item" id="gdrive-last-sync-row" style="display:none">
           <span class="settings-item-label">Last Sync</span>
           <span class="settings-item-value" id="gdrive-last-sync">—</span>
-        </div>
-        <div class="settings-input-row" id="gdrive-client-id-row">
-          <input type="text" class="form-input" id="gdrive-client-id" placeholder="Google OAuth Client ID">
         </div>
         <div class="settings-item" id="gdrive-connect-row">
           <span class="settings-item-label">Connect Account</span>
