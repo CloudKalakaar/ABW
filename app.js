@@ -1020,7 +1020,7 @@ const GDrive = {
     }
     if (!this.tokenClient) this.init();
     if (this.tokenClient) {
-      this.tokenClient.requestAccessToken({ prompt: forceSelect ? 'select_account' : '' });
+      this.tokenClient.requestAccessToken({ prompt: forceSelect ? 'consent select_account' : '' });
     } else {
       showToast('Failed to initialize Google client', 'error');
     }
@@ -1062,7 +1062,7 @@ const GDrive = {
       };
       try {
         const email = state.gdrive.userEmail || '';
-        this.tokenClient.requestAccessToken({ prompt: allowPrompt ? 'select_account' : '', hint: email });
+        this.tokenClient.requestAccessToken({ prompt: allowPrompt ? 'consent select_account' : '', hint: email });
       } catch (e) {
         clearTimeout(timeout);
         resolve(null);
@@ -1071,20 +1071,29 @@ const GDrive = {
   },
 
   async findRemoteFile(token) {
+    const q = encodeURIComponent(`name = '${this.fileName}' and trashed = false`);
+    // 1. Check in appDataFolder first
     try {
-      const q = encodeURIComponent(`name = '${this.fileName}' and trashed = false`);
-      const res = await fetch(`https://www.googleapis.com/drive/v3/files?spaces=appDataFolder,drive&q=${q}&fields=files(id,name)`, {
+      const resApp = await fetch(`https://www.googleapis.com/drive/v3/files?spaces=appDataFolder&q=${q}&fields=files(id,name)`, {
         headers: { Authorization: `Bearer ${token}` }
       });
-      if (res.ok) {
-        const data = await res.json();
+      if (resApp.ok) {
+        const data = await resApp.json();
         if (data.files && data.files.length > 0) return data.files[0];
-      } else {
-        console.error('findRemoteFile response error:', await res.text());
       }
-    } catch (e) {
-      console.error('findRemoteFile fetch exception:', e);
-    }
+    } catch (e) {}
+
+    // 2. Check in general drive space
+    try {
+      const resDrive = await fetch(`https://www.googleapis.com/drive/v3/files?spaces=drive&q=${q}&fields=files(id,name)`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      if (resDrive.ok) {
+        const data = await resDrive.json();
+        if (data.files && data.files.length > 0) return data.files[0];
+      }
+    } catch (e) {}
+
     return null;
   },
 
@@ -1113,17 +1122,32 @@ const GDrive = {
           body: contentBlob
         });
       } else {
-        const metadata = { name: this.fileName, parents: ['appDataFolder'], mimeType: 'application/json' };
         const boundary = '-------314159265358979323846';
         const delimiter = "\r\n--" + boundary + "\r\n";
         const close_delim = "\r\n--" + boundary + "--";
-        const body = delimiter + 'Content-Type: application/json; charset=UTF-8\r\n\r\n' + JSON.stringify(metadata) + delimiter + 'Content-Type: application/json\r\n\r\n' + JSON.stringify(dataToSync, null, 2) + close_delim;
+
+        // Attempt 1: Upload to appDataFolder
+        const metadataApp = { name: this.fileName, parents: ['appDataFolder'], mimeType: 'application/json' };
+        const bodyApp = delimiter + 'Content-Type: application/json; charset=UTF-8\r\n\r\n' + JSON.stringify(metadataApp) + delimiter + 'Content-Type: application/json\r\n\r\n' + JSON.stringify(dataToSync, null, 2) + close_delim;
 
         response = await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart', {
           method: 'POST',
           headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'multipart/related; boundary=' + boundary },
-          body: body
+          body: bodyApp
         });
+
+        // Attempt 2: If 403 Forbidden on appDataFolder, fallback to root Google Drive (drive.file scope)
+        if (response && response.status === 403) {
+          console.warn('appDataFolder returned 403, falling back to root Google Drive...');
+          const metadataDrive = { name: this.fileName, mimeType: 'application/json' };
+          const bodyDrive = delimiter + 'Content-Type: application/json; charset=UTF-8\r\n\r\n' + JSON.stringify(metadataDrive) + delimiter + 'Content-Type: application/json\r\n\r\n' + JSON.stringify(dataToSync, null, 2) + close_delim;
+
+          response = await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart', {
+            method: 'POST',
+            headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'multipart/related; boundary=' + boundary },
+            body: bodyDrive
+          });
+        }
       }
 
       if (response && response.ok) {
@@ -1134,13 +1158,22 @@ const GDrive = {
         updateGDriveUI();
         if (showNotification) showToast('☁️ Synced to Google Drive successfully!', 'success');
       } else {
-        const errText = response ? await response.text() : 'Network error';
-        console.error('Google Drive sync error:', errText);
+        let errMessage = '';
+        try {
+          const errData = await response.json();
+          errMessage = errData?.error?.message || '';
+        } catch (e) {
+          try { errMessage = await response.text(); } catch (e2) {}
+        }
+        console.error('Google Drive sync error:', response?.status, errMessage);
+
         if (response && response.status === 401) {
           this.accessToken = null;
           this.tokenExpiresAt = 0;
           this.saveAuthStorage();
           if (showNotification) showToast('Session expired. Please reconnect in Settings.', 'error');
+        } else if (response && response.status === 403) {
+          if (showNotification) showToast('Sync failed (403): Reconnect in Settings and enable permissions', 'error');
         } else {
           if (showNotification) showToast('Sync failed (' + (response ? response.status : 'error') + ')', 'error');
         }
